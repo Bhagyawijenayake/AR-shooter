@@ -10,7 +10,7 @@ public class ShooterScript : MonoBehaviour
     public void Shoot(){
         RaycastHit hit;
         if(Physics.Raycast(arCamera.transform.position, arCamera.transform.forward, out hit)){
-            if(hit.transform.name == "Balloon1(Clone)" || hit.transform.name == "Balloon2(Clone)" || hit.transform.name == "Balloon3(Clone)" || hit.transform.name == "Object(Clone)"){
+            if(hit.transform.name == "spider Variant(Clone)" ){
                 Destroy(hit.transform.gameObject);
                 Instantiate(smoke, hit.point, Quaternion.identity);
             }
