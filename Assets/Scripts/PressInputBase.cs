@@ -2,21 +2,18 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 /// <summary>
-/// For tutorial video, see my YouTube channel: <seealso href="https://www.youtube.com/@xiennastudio">YouTube channel</seealso>
-/// 
-/// Create a new input system with Pointer press as the input.
+/// Base class for handling pointer press input events.
 /// </summary>
-[HelpURL("https://youtu.be/HkNVp04GOEI")]
 public abstract class PressInputBase : MonoBehaviour
 {
     protected InputAction m_PressAction;
 
     protected virtual void Awake()
     {
-        // Create a new input within the script.
+        // Create a new input action for pointer press.
         m_PressAction = new InputAction("touch", binding: "<Pointer>/press");
 
-        // If touch is being started, call the OnPressBegan function.
+        // Callback when the pointer press is initiated.
         m_PressAction.started += ctx =>
         {
             if (ctx.control.device is Pointer device)
@@ -25,7 +22,7 @@ public abstract class PressInputBase : MonoBehaviour
             }
         };
 
-        // If touch is being performed, call the OnPress function.
+        // Callback when the pointer press is ongoing.
         m_PressAction.performed += ctx =>
         {
             if (ctx.control.device is Pointer device)
@@ -34,7 +31,7 @@ public abstract class PressInputBase : MonoBehaviour
             }
         };
 
-        // If the existing touch is stopped or canceled, call the OnPressCancel function.
+        // Callback when the pointer press is canceled or stopped.
         m_PressAction.canceled += _ => OnPressCancel();
     }
 
@@ -53,9 +50,12 @@ public abstract class PressInputBase : MonoBehaviour
         m_PressAction.Dispose();
     }
 
+    // Called when the pointer press is ongoing.
     protected virtual void OnPress(Vector3 position) { }
 
+    // Called when the pointer press is initiated.
     protected virtual void OnPressBegan(Vector3 position) { }
 
+    // Called when the pointer press is canceled or stopped.
     protected virtual void OnPressCancel() { }
 }
